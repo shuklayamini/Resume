@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yamini Shukla — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sage: #4A7C6F; --sage-lt: #EAF2EF; --sage-dk: #2E5A50;
+    --gold: #8B6914; --ink: #1C1C2E; --muted: #6B7280;
+    --pale: #F7F8F6; --rule: #D1E0DC; --white: #FFFFFF;
+  }
+  body { font-family: 'Inter', sans-serif; background: #E8EDE8; min-height: 100vh; padding: 40px 20px; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .page { max-width: 960px; margin: 0 auto; background: var(--white); box-shadow: 0 8px 48px rgba(0,0,0,.12); display: grid; grid-template-columns: 250px 1fr; min-height: 700px; border-radius: 4px; overflow: hidden; }
+  .sidebar { background: var(--sage-lt); padding: 40px 26px; border-right: 1px solid var(--rule); }
+  .avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
+  .s-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .s-title { font-size: 10px; font-weight: 500; color: var(--sage-dk); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 24px; line-height: 1.6; }
+  .s-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; color: var(--sage-dk); margin-bottom: 9px; padding-bottom: 6px; border-bottom: 1.5px solid var(--rule); margin-top: 22px; }
+  .c-item { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 9px; }
+  .c-icon { width: 13px; height: 13px; margin-top: 1px; flex-shrink: 0; opacity: .55; }
+  .c-text { font-size: 11.5px; color: var(--ink); line-height: 1.5; word-break: break-all; }
+  .skill-pill { display: inline-block; background: rgba(74,124,111,.12); color: var(--sage-dk); border-radius: 3px; font-size: 10.5px; font-weight: 500; padding: 2px 7px; margin: 2px 2px 0 0; }
+  .lang-row { margin-bottom: 9px; }
+  .lang-name { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .lang-lvl { font-size: 10.5px; color: var(--muted); margin-bottom: 4px; }
+  .bar-bg { height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+  .bar { height: 100%; background: var(--sage); border-radius: 2px; }
+  .int-tag { font-size: 11px; color: var(--muted); display: flex; align-items: flex-start; gap: 6px; margin-bottom: 6px; }
+  .int-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage); flex-shrink: 0; margin-top: 4px; }
+
+  .main { padding: 0; }
+  .hero { padding: 36px 44px 26px; border-bottom: 1px solid var(--rule); position: relative; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--sage) 0%, var(--gold) 65%, var(--sage-lt) 100%); }
+  .h-name { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 600; color: var(--ink); line-height: 1; letter-spacing: -.5px; margin-bottom: 8px; }
+  .h-tag { font-size: 12px; color: var(--sage-dk); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 14px; }
+  .h-sum { font-size: 13px; color: var(--muted); line-height: 1.75; max-width: 500px; }
+
+  .nav-tabs { display: flex; border-bottom: 1px solid var(--rule); padding: 0 44px; }
+  .tab { font-size: 11px; font-weight: 500; color: var(--muted); padding: 11px 16px; cursor: pointer; border: none; border-bottom: 2px solid transparent; background: none; text-transform: uppercase; letter-spacing: .06em; transition: color .2s, border-color .2s; }
+  .tab:hover { color: var(--ink); }
+  .tab.active { color: var(--sage); border-bottom-color: var(--sage); }
+
+  .panel { padding: 28px 44px; display: none; }
+  .panel.active { display: block; }
+
+  .job { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed var(--rule); cursor: pointer; }
+  .job:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .job-hd { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 4px; }
+  .j-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+  .j-period { font-size: 10.5px; color: var(--muted); font-weight: 500; white-space: nowrap; background: var(--pale); padding: 2px 8px; border-radius: 20px; flex-shrink: 0; margin-top: 3px; }
+  .j-meta { font-size: 12px; font-weight: 600; color: var(--sage-dk); margin-bottom: 0; }
+  .j-body { overflow: hidden; max-height: 0; transition: max-height .35s ease, opacity .3s ease; opacity: 0; }
+  .j-body.open { max-height: 300px; opacity: 1; }
+  .j-bullets { list-style: none; padding: 0; margin-top: 10px; }
+  .j-bullets li { font-size: 12.5px; color: #4B5563; line-height: 1.65; padding-left: 14px; position: relative; margin-bottom: 5px; }
+  .j-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--sage); font-weight: 600; }
+  .chevron { font-size: 16px; color: var(--muted); transition: transform .3s; margin-top: 3px; flex-shrink: 0; }
+  .chevron.open { transform: rotate(180deg); }
+
+  .edu-item { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px dashed var(--rule); }
+  .edu-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .e-deg { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+  .e-school { font-size: 12px; color: var(--muted); }
+  .e-yr { font-size: 10.5px; color: var(--muted); white-space: nowrap; background: var(--pale); padding: 2px 8px; border-radius: 20px; }
+
+  .sk-cat { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--sage); margin: 18px 0 8px; }
+  .sk-cat:first-child { margin-top: 0; }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sk-card { background: var(--pale); border: 1px solid var(--rule); border-radius: 6px; padding: 7px 12px; font-size: 12px; color: var(--ink); font-weight: 500; transition: border-color .2s, color .2s; }
+  .sk-card:hover { border-color: var(--sage); color: var(--sage-dk); }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .stat { background: var(--pale); border-radius: 8px; padding: 14px; text-align: center; }
+  .stat-n { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: var(--sage); line-height: 1; }
+  .stat-l { font-size: 10px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .06em; }
+
+  .tl-item { display: flex; gap: 16px; margin-bottom: 18px; }
+  .tl-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .tl-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--sage); flex-shrink: 0; margin-top: 3px; }
+  .tl-connector { width: 1.5px; background: var(--rule); flex: 1; margin-top: 4px; min-height: 26px; }
+  .tl-item:last-child .tl-connector { display: none; }
+  .tl-yr { font-size: 10.5px; color: var(--sage); font-weight: 600; margin-bottom: 2px; }
+  .tl-role { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .tl-co { font-size: 11.5px; color: var(--muted); }
+
+  @media print { body { background: white; padding: 0; } .page { box-shadow: none; } .nav-tabs, .panel:not(.active) { display: none; } .panel.active { display: block; padding: 20px 32px; } }
+  @media (max-width: 700px) { .page { grid-template-columns: 1fr; } .sidebar { border-right: none; border-bottom: 1px solid var(--rule); } .h-name { font-size: 36px; } .hero, .panel, .nav-tabs { padding-left: 20px; padding-right: 20px; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <aside class="sidebar">
+    <div class="avatar">YS</div>
+    <div class="s-name">Yamini Shukla</div>
+    <div class="s-title">Writer · Strategist<br>Brand Story Architect</div>
+    <div class="s-label">Contact</div>
+    <div class="c-item">
+      <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      <span class="c-text">yshukla0409@gmail.com</span>
+    </div>
+    <div class="c-item">
+      <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <span class="c-text">Delhi, India</span>
+    </div>
+    <div class="c-item">
+      <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7H10v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      <span class="c-text">linkedin.com/in/yamini-shukla-work</span>
+    </div>
+    <div class="s-label">Top skills</div>
+    <span class="skill-pill">Content Writing</span><span class="skill-pill">Brand Storytelling</span><span class="skill-pill">Content Strategy</span><span class="skill-pill">Copywriting</span><span class="skill-pill">Hindi Writing</span><span class="skill-pill">Editorial Leadership</span><span class="skill-pill">eCommerce Content</span><span class="skill-pill">AI Workflows</span>
+    <div class="s-label">Languages</div>
+    <div class="lang-row"><div class="lang-name">Hindi</div><div class="lang-lvl">Native</div><div class="bar-bg"><div class="bar" style="width:100%"></div></div></div>
+    <div class="lang-row"><div class="lang-name">English</div><div class="lang-lvl">Professional</div><div class="bar-bg"><div class="bar" style="width:80%"></div></div></div>
+    <div class="s-label">Interests</div>
+    <div class="int-tag"><span class="int-dot"></span>Fiction &amp; Non-fiction</div>
+    <div class="int-tag"><span class="int-dot"></span>Astrology</div>
+    <div class="int-tag"><span class="int-dot"></span>Psychology &amp; Philosophy</div>
+    <div class="int-tag"><span class="int-dot"></span>Voracious Reading</div>
+    <div class="int-tag"><span class="int-dot"></span>Food &amp; Culture</div>
+    <div class="s-label">Certifications</div>
+    <div class="lang-name" style="font-size:12px;margin-bottom:2px">Soft Skills</div>
+    <div class="lang-lvl">Delhi University · 2012</div>
+  </aside>
+
+  <main class="main">
+    <div class="hero">
+      <div class="h-name">Yamini Shukla</div>
+      <div class="h-tag">Writer · Content Strategist · Brand Story Architect</div>
+      <p class="h-sum">Creative content professional with 5+ years crafting narratives at the intersection of emotion, psychology, and strategy — for eCommerce, media, and brand campaigns alike.</p>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="tab active" onclick="showTab('exp',this)">Experience</button>
+      <button class="tab" onclick="showTab('skills',this)">Skills</button>
+      <button class="tab" onclick="showTab('edu',this)">Education</button>
+      <button class="tab" onclick="showTab('timeline',this)">Timeline</button>
+    </div>
+
+    <div id="exp" class="panel active">
+      <div class="job" onclick="toggleJob(this)">
+        <div class="job-hd"><div><div class="j-title">Content Editor</div><div class="j-meta">Prayag · Delhi</div></div><div style="display:flex;align-items:flex-start;gap:8px"><div class="j-period">Jan 2026 – Present</div><span class="chevron">⌄</span></div></div>
+        <div class="j-body"><ul class="j-bullets"><li>Create and moderate content for Amazon and Flipkart eCommerce platforms</li><li>Write product pages, knowledge resources, and sales presentations</li><li>Build brand messaging frameworks aligned with business objectives</li><li>Use ChatGPT and Gemini to streamline research and workflow optimisation</li></ul></div>
+      </div>
+      <div class="job" onclick="toggleJob(this)">
+        <div class="job-hd"><div><div class="j-title">Brand Story Strategist</div><div class="j-meta">Digisense Media · Delhi</div></div><div style="display:flex;align-items:flex-start;gap:8px"><div class="j-period">Feb 2025 – Feb 2026</div><span class="chevron">⌄</span></div></div>
+        <div class="j-body"><ul class="j-bullets"><li>Articulated authentic brand voices through psychology-driven storytelling</li><li>Designed scalable communication frameworks for creative teams</li><li>Applied emotional branding to create deeply felt brand experiences</li></ul></div>
+      </div>
+      <div class="job" onclick="toggleJob(this)">
+        <div class="job-hd"><div><div class="j-title">Writer</div><div class="j-meta">Birdstance · Delhi</div></div><div style="display:flex;align-items:flex-start;gap:8px"><div class="j-period">Apr 2023 – Jan 2026</div><span class="chevron">⌄</span></div></div>
+        <div class="j-body"><ul class="j-bullets"><li>Created well-researched articles, listicles, and in-depth interviews</li><li>Combined investigative research with clear, accessible storytelling</li></ul></div>
+      </div>
+      <div class="job" onclick="toggleJob(this)">
+        <div class="job-hd"><div><div class="j-title">Head Writer &amp; Content Writer</div><div class="j-meta">Marg ERP Limited · Marg News · Delhi</div></div><div style="display:flex;align-items:flex-start;gap:8px"><div class="j-period">Jul 2021 – Sep 2022</div><span class="chevron">⌄</span></div></div>
+        <div class="j-body"><ul class="j-bullets"><li>Headed the writing team for Marg News, serving SMEs and MSMEs</li><li>Led content strategy, curation, and final publishing</li><li>Wrote video scripts, IVR scripts, ad copies, and press releases</li><li>Conducted CEO interviews; authored memorable brand taglines</li></ul></div>
+      </div>
+      <div class="job" onclick="toggleJob(this)">
+        <div class="job-hd"><div><div class="j-title">Content Developer</div><div class="j-meta">VVS Consultancy · Jaipur</div></div><div style="display:flex;align-items:flex-start;gap:8px"><div class="j-period">Apr – Jul 2021</div><span class="chevron">⌄</span></div></div>
+        <div class="j-body"><ul class="j-bullets"><li>Developed English website content, expanding from Hindi to bilingual writing</li></ul></div>
+      </div>
+    </div>
+
+    <div id="skills" class="panel">
+      <div class="sk-cat">Writing &amp; Content</div>
+      <div class="skills-grid"><div class="sk-card">Content Writing</div><div class="sk-card">Hindi Copywriting</div><div class="sk-card">English Copywriting</div><div class="sk-card">Non-fiction Writing</div><div class="sk-card">News Writing</div><div class="sk-card">Ghost Writing</div><div class="sk-card">Interviews &amp; Features</div><div class="sk-card">Creative Writing</div></div>
+      <div class="sk-cat">Strategy &amp; Brand</div>
+      <div class="skills-grid"><div class="sk-card">Brand Storytelling</div><div class="sk-card">Content Strategy</div><div class="sk-card">Communication Frameworks</div><div class="sk-card">eCommerce Content</div><div class="sk-card">Social Media Copy</div><div class="sk-card">Press Releases</div></div>
+      <div class="sk-cat">Tools &amp; Leadership</div>
+      <div class="skills-grid"><div class="sk-card">ChatGPT &amp; Gemini</div><div class="sk-card">WordPress</div><div class="sk-card">Team Leadership</div><div class="sk-card">Editorial Management</div><div class="sk-card">Process Design</div></div>
+    </div>
+
+    <div id="edu" class="panel">
+      <div class="edu-item"><div><div class="e-deg">MA — Hindi Language &amp; Literature</div><div class="e-school">Indira Gandhi National Open University</div></div><div class="e-yr">2019 – 2021</div></div>
+      <div class="edu-item"><div><div class="e-deg">Bachelor's — Mass Communication &amp; Media Studies</div><div class="e-school">Guru Jambheshwar University, Hisar</div></div><div class="e-yr">2012 – 2015</div></div>
+      <div class="edu-item"><div><div class="e-deg">Senior Secondary</div><div class="e-school">Manendra Shakti Vidyalaya</div></div><div class="e-yr">2010 – 2011</div></div>
+      <div class="edu-item"><div><div class="e-deg">Certificate — Soft Skills</div><div class="e-school">Delhi University</div></div><div class="e-yr">2012</div></div>
+    </div>
+
+    <div id="timeline" class="panel">
+      <div class="stat-grid">
+        <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Years experience</div></div>
+        <div class="stat"><div class="stat-n">5</div><div class="stat-l">Companies</div></div>
+        <div class="stat"><div class="stat-n">2</div><div class="stat-l">Languages</div></div>
+      </div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div><div class="tl-yr">2026 – Present</div><div class="tl-role">Content Editor</div><div class="tl-co">Prayag, Delhi</div></div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div><div class="tl-yr">2025 – 2026</div><div class="tl-role">Brand Story Strategist</div><div class="tl-co">Digisense Media, Delhi</div></div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div><div class="tl-yr">2023 – 2026</div><div class="tl-role">Writer</div><div class="tl-co">Birdstance, Delhi</div></div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div><div class="tl-yr">2021 – 2022</div><div class="tl-role">Head Writer &amp; Content Writer</div><div class="tl-co">Marg ERP Limited, Delhi</div></div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div><div><div class="tl-yr">2021</div><div class="tl-role">Content Developer</div><div class="tl-co">VVS Consultancy, Jaipur</div></div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot" style="background:#8B6914"></div><div class="tl-connector"></div></div><div><div class="tl-yr">2019 – 2021</div><div class="tl-role">MA, Hindi Language &amp; Literature</div><div class="tl-co">IGNOU</div></div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot" style="background:#8B6914"></div></div><div><div class="tl-yr">2012 – 2015</div><div class="tl-role">Bachelor's, Mass Communication</div><div class="tl-co">Guru Jambheshwar University</div></div></div>
+    </div>
+  </main>
+</div>
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleJob(el) {
+  const body = el.querySelector('.j-body');
+  const chev = el.querySelector('.chevron');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.j-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.chevron').forEach(c => c.classList.remove('open'));
+  if (!isOpen) { body.classList.add('open'); chev.classList.add('open'); }
+}
+</script>
+</body>
+</html>
